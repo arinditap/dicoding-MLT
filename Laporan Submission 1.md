@@ -5,10 +5,10 @@ Arindita Prihastama - MLT4
 
 ## Domain Proyek
 
-Jantung merupakan salah satu organ utama yang dimiliki manusia, yang sangat penting bagi keberlangsungan hidup manusia. Jantung harus bekerja dengan benar karena memiliki fungsi untuk memompa darah ke  seluruh tubuh sehingga oksigen dan zat-zat gizi dapat tersalurkan. Jika jantung tidak bekerja dengan benar, akan mengganggu fungsi organ tubuh lainnya. Berdasarkan data WHO, penyakit jantung merupakan salah satu penyakit yang menyebabkan kematian terbanyak di dunia sebesar 16%[1]. Di Indonesia sendiri menurut Kementerian Kesehatan Indonesia pada tahun 2017 penyakit jantung merupakan penyebab kematian tertinggi[2]. Penyakit jantung dapat disebabkan oleh tekanan darah, stress, bekerja secara berlebihan, gula darah, dan masih banyak penyebab lainnya. Dengan makin berkembangnya teknologi yang ada, dapat membantu memprediksi potensi penyakit jantung berdasarkan data-data yang berkaitan.
+Jantung merupakan salah satu organ utama yang dimiliki manusia, yang sangat penting bagi keberlangsungan hidup manusia. Jantung harus bekerja dengan benar karena memiliki fungsi untuk memompa darah ke  seluruh tubuh sehingga oksigen dan zat-zat gizi dapat tersalurkan. Jika jantung tidak bekerja dengan benar, akan mengganggu fungsi organ tubuh lainnya. Berdasarkan data WHO, penyakit jantung merupakan salah satu penyakit yang menyebabkan kematian terbanyak di dunia sebesar 16%[1]. Di Indonesia sendiri menurut Kementerian Kesehatan Indonesia pada tahun 2017 penyakit jantung merupakan penyebab kematian tertinggi[2]. Menurut Survei Sample Registration System Tahun 2018 menunjukkan 12,9% kematian akibat penyakit jantung koroner. Terhitung sampai 31 Desember 2021 terdapat 12,9 juta kasus penyakit jantung yang tercatat sebagai Program JKN[10]. Penyakit jantung dapat disebabkan oleh tekanan darah, stress, bekerja secara berlebihan, gula darah, dan masih banyak penyebab lainnya. Dengan makin berkembangnya teknologi yang ada, dapat membantu memprediksi potensi penyakit jantung berdasarkan data-data yang berkaitan.
 
 ## Business Understanding
-Penelitian ini dilakukan untuk memahami hubungan masing-masing faktor terhadap adanya kemungkinan penyakit jantung pada pasien, sehingga dapat membantu dokter dalam memberikan tindakan yang tepat serta mengurangi kemungkinan salah diagnosis.
+Penelitian ini dilakukan dengan tujuan untuk memahami hubungan masing-masing faktor terhadap adanya kemungkinan penyakit jantung pada pasien, memprediksi dengan akurasi sebaik mungkin mengenai risiko penyakit jantung pada pasien berdasarkan data klinis yang tersedia, sehingga dapat membantu dokter dalam memberikan tindakan yang tepat serta mengurangi kemungkinan salah diagnosis.
 
 ### Problem Statements
 - Apa saja faktor yang mempengaruhi adanya potensi penyakit jantung?
@@ -109,6 +109,8 @@ Dari data continuous features diatas, dapat disimpulkan:`age` ada pada rentang 2
 
 #### Distribusi Fitur Categorical terhadap Variabel Target
 ![distribution_cat_ft](https://github.com/arinditap/dicoding-MLT1-heart-attack-pred/assets/48308725/0e8bae9f-853f-4136-a102-ba0aa4b4b0cb)
+>Gambar 1. Distribusi Fitur Categorical
+##### Pada Gambar 1 dijelaskan distribusi fitur categorical terhadap variabel target, sehingga dapat disimpulkan bahwa:
 - Orang dengan Chestpain tipe *Non-Anginal Pain* memiliki potensi terkena penyakit jantung lebih besar
 - Orang dengan pembuluh darah besar = 0 berpotensi terkena penyakit jantung lebih besar
 - Laki-laki berpotensi terkena penyakit jantung lebih besar
@@ -117,18 +119,23 @@ Dari data continuous features diatas, dapat disimpulkan:`age` ada pada rentang 2
 
 #### Distribusi Fitur Continuous terhadap Variabel Target
 ![distribution_cont_ft](https://github.com/arinditap/dicoding-MLT1-heart-attack-pred/assets/48308725/8e453e99-db7a-4b7e-8324-8bb20521ad6b)
+>Gambar 2. Distribusi Fitur Continuous
+##### Gambar 2 menggambarkan distribusi fitur continuous terhadap variabel target, dapat dilihat bahwa: 
+- 'age' fitur 
 
 #### Correlation Matrix antarfitur
 ![correlation_matrix](https://github.com/arinditap/dicoding-MLT1-heart-attack-pred/assets/48308725/bda8f26f-9cf7-4436-94e5-128a80807fa5)
-- Faktor yang memiliki korelasi tinggi adalah 'cp', 'thalach', dan 'slope'
-- Faktor yang memiliki korelasi rendah adalah 'restecg', dan 'fbs'
+>Gambar 3. Correlation Matrix Antar Fitur
+###### Nilai korelasi bisa positif dan negatif. Korelasi positif artinya jika penambahan nilai X sebanding dengan bertambahnya nilai di Y. Sedangkan nilai korelasi negatif berarti tiap ada penambahan nilai di X maka ada penurunan nilai di Y. Berdasarkan Gambar 3, dapat diketahui bahwa: 
+- Faktor yang memiliki nilai korelasi positif tertinggi adalah fitur `cp` dengan nilai 0.43, dan korelasi negatif tertinggi adalah fitur `exang` dan `oldpeak` yang sama-sama memiliki nilai -0.44
+- Faktor yang memiliki korelasi rendah adalah 'restecg' dengan nilai 0.13 pada korelasi positif dengan, dan 'fbs' dengan nilai -0.04 pada korelasi negatif. Nantinya kedua fitur ini akan di hapus dalam proses seleksi data.
 
 ## Data Preprocessing
 Data yang digunakan dapat dikategorikan sebagai imbalance data. Oleh karena itu akan dilakukan data preprocessing berupa pembagian data menggunakan Train-Test Split dan standarisasi menggunakan StandardScaler. Tahapannya adalah sebagai berikut:
 1. Membuang fitur dengan korelasi rendah.
 2. Karena sebagian data belum berbentuk numerik maka dilakukan encoding pada fitur-fitur categorical.
 3. Melakukan pembagian dataset menjadi data latih (train) dan data uji (test) menggunakan modul `train_test_split` dengan rasio 80:20. Dari total sampel seluruh dataset yang berjumlah 1025 didapatkan sampel pada train dataset sejumlah 820 dan sampel pada test dataset 205.
-4. Melakukan standarisasi data menggunakan StandardScaler
+4. Melakukan standarisasi data menggunakan StandardScaler. StandardScaler dipilih karena dataset yang digunakan adalah data numerik dimana StandardScaler akan menghilangkan mean dengan memusatkan mean pada nilai 0 dan menskalakan standar deviasi bernilai 1.
    ```sh
             Hasil Standarisasi Fitur Continuous
    	        age	    trestbps	  chol	   thalach	oldpeak
@@ -144,13 +151,21 @@ Data yang digunakan dapat dikategorikan sebagai imbalance data. Oleh karena itu 
 ## Modelling
 Tahapan ini menerapkan algoritma Machine Learning untuk menjawab permasalahan yang dijabarkan pada problem statements diatas. Algoritma ML yang akan diterapkan antara lain:
 1. Random Forest
-   Algoritma ini digunakan untuk pengklasifikasian data set yang memiliki jumlah besar, sehingga bisa digunakan untuk banyak dimensi dengan berbagai skala dan performa yang tinggi. Klasifikasi ini               dilakukan melalui penggabungan tree dalam decision tree dengan cara training dataset yang Anda miliki[3].
+   Algoritma ini digunakan untuk pengklasifikasian data set yang memiliki jumlah besar, sehingga bisa digunakan untuk banyak dimensi dengan berbagai skala dan performa yang tinggi. Klasifikasi ini               dilakukan melalui penggabungan tree dalam decision tree dengan cara training dataset yang Anda miliki[3]. Pada algoritma ini dilakukan hyperparameter tuning menggunakan GridSearchCV.
+   ```sh
+   Best parameters: {'max_depth': 10, 'n_estimators': 130, 'random_state': 13}
+   Best score: 0.983451536643026
+   ```
 2. Decision Tree
    Algoritma ini menggunakan seperangkat aturan untuk membuat keputusan dengan struktur seperti pohon yang memodelkan kemungkinan hasil, biaya sumber daya, utilitas dan kemungkinan konsekuensi atau resiko.      Konsepnya dengan menyajikan algoritma dengan pernyataan bersyarat, meliputi cabang untuk mewakili langkah-langkah pengambilan keputusan yang dapat mengarah pada hasil yang menguntungkan[3].
-   Random Forest dan Decision Tree cocok untuk melakukan klasifikasi pada data penyakit jantung karena model ini dapat memetakan pola dan hubungan antara variabel independen dengan variabel target, serta        dapat memecah data menjadi subset yang lebih kecil untuk meningkatkan akurasi model.
+   Random Forest dan Decision Tree cocok untuk melakukan klasifikasi pada data penyakit jantung karena model ini dapat memetakan pola dan hubungan antara variabel independen dengan variabel target, serta        dapat memecah data menjadi subset yang lebih kecil untuk meningkatkan akurasi model. Setelah dilakukan hyperparameter tuning menggunakan GridSearchCV hasilnya:
+   ```sh
+   Best parameters: {'criterion': 'entropy', 'max_depth': 5, 'splitter': 'best'}
+   Best score: 0.9314420803782505
+   ```
 3. Support Vector Machine (SVM)
    Algoritma ini termasuk dalam kategori Supervised Learning yang digunakan untuk menyelesaikan permasalahan klasifikasi dan regresi. SVM bertujuan untuk menetapkan hyperplane terbaik dalam ruang berdimensi-    N (ruang dengan N-jumlah fitur) yang berfungsi sebagai pemisah yang jelas bagi titik-titik data input. SVM adalah model yang cocok untuk digunakan  karena model ini dapat mengatasi masalah klasifikasi        yang kompleks dan memiliki kemampuan untuk menemukan hyperlane yang lebih baik dalam data yang kompleks.
-5. Extreme Gradient Boosting (XGBoost)
+4. Extreme Gradient Boosting (XGBoost)
    Algoritma ini mengintegrasikan beberapa model pohon untuk membangun model pembelajaran yang lebih kuat. Selain itu, XGBoost dicirikan oleh kemampuannya untuk menggunakan multithreading CPU secara otomatis    untuk komputasi paralel, yang dapat mempercepat penghitungan[5]. Algoritma XGBoost dapat mengatasi data medis yang kompleks dan beragam, dan dapat memenuhi persyaratan ketepatan waktu dan akurasi             diagnosis tambahan dengan lebih baik[]. XGBoost cocok untuk digunakan karena model ini dapat mengatasi masalah overfitting dan memiliki kemampuan untuk meningkatkan performa model dengan menambahkan lebih    banyak estimator pada model.
 
 ## Evaluasi Model
@@ -187,6 +202,8 @@ Fitur yang paling berpengaruh dalam prediksi penyakit jantung adalah `age` dan `
 ## Kesimpulan
 - Faktor yang paling berpengaruh dalam prediksi adanya penyakit jantung adalah faktor `age` atau usia dan `chol` atau tingkat kolesterol.
 - Berdasarkan evaluasi model, disimpulkan bahwa XGBoost memiliki performa terbaik dengan akurasi 92.19%. Selain itu precision dan recall dari XGBoost juga memiliki nilai terbaik yaitu 0.90 dan 0.94 yang mana ini menunjukkan bahwa model ini mampu memprediksi dengan akurat orang yang memiliki penyakit jantung dengan yang tidak.
+- Untuk meningkatkan akurasi, dapat dilakukan dengan menambah data latih 
+- Untuk dapat mengurangi resiko terkena penyakit jantung, beberapa faktor harus diperhatikan, misalnya dengan menjaga kadar kolesterol dalam tubuh. 
 
 ## Referensi
 1. The top 10 causes of death,” who.int, 2020.
@@ -198,6 +215,7 @@ Fitur yang paling berpengaruh dalam prediksi penyakit jantung adalah `age` dan `
 7. Givari, M. R., Sulaeman, M. R., & Umaidah, Y. (2022). Perbandingan Algoritma SVM, Random Forest Dan XGBoost Untuk Penentuan Persetujuan Pengajuan Kredit. Nuansa Informatika, 16(1), 141-149.
 8. Al Azhima, S. A. T., Darmawan, D., Hakim, N. F. A., Kustiawan, I., Al Qibtiya, M., & Syafei, N. S. (2022). Hybrid Machine Learning Model untuk memprediksi Penyakit Jantung dengan Metode Logistic Regression dan Random Forest. Jurnal Teknologi Terpadu, 8(1), 40-46.
 9. Azhari, M., Situmorang, Z., & Rosnelly, R. (2021). Perbandingan Akurasi, Recall, dan Presisi Klasifikasi pada Algoritma C4. 5, Random Forest, SVM dan Naive Bayes. Jurnal Media Informatika Budidarma, 5(2), 640-651.
+10. Profil Kesehatan 2021. [Online]. Available : https://www.kemkes.go.id/downloads/resources/download/pusdatin/profil-kesehatan-indonesia/Profil-Kesehatan-2021.pdf
    
 
 
